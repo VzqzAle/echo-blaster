@@ -319,12 +319,6 @@
 
     <header class="header">
         <div class="logo">Echo Blaster</div>
-        <nav class="navbar">
-            <a href="#" onclick="showCategory('all')">Inicio</a>
-            <a href="#productos" onclick="showCategory('audifonos')">Electrónicos</a>
-            <a href="#productos" onclick="showCategory('perfumes')">Perfumes</a>
-            <a href="#contacto">Mayoreo / Contacto</a>
-        </nav>
         <div class="cart-icon" id="cart-counter" onclick="openCartModal()" style="cursor: pointer;">🛒 (0)</div>
     </header>
 
@@ -611,7 +605,7 @@
         }
 
         let cart = [];
-        let itemsToCheckout = []; // Almacena únicamente los elementos del pedido actual a cobrar
+        let itemsToCheckout = [];
         let currentModalProduct = null;
 
         function extractPrice(priceString) {
@@ -636,21 +630,12 @@
             addToCart(title, price, 1);
         }
 
-        /* 
-         * COMPRA ÚNICA INDEPENDIENTE: 
-         * No modifica ni consulta el arreglo 'cart'. 
-         * Carga únicamente este ítem en 'itemsToCheckout' y abre el checkout.
-         */
         function buySingleProduct(title, price) {
             const numericPrice = extractPrice(price);
             itemsToCheckout = [{ title: title, price: numericPrice, quantity: 1 }];
             showCheckoutScreen();
         }
 
-        /* 
-         * COMPRA DE CARRITO COMPLETO: 
-         * Asigna la lista acumulada de 'cart' a 'itemsToCheckout'.
-         */
         function openCartCheckout() {
             if (cart.length === 0) {
                 alert("Primero debes añadir productos a tu carrito.");

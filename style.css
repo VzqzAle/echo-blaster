@@ -29,15 +29,9 @@ body {
     font-weight: bold;
 }
 
-.navbar a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 12px;
+.cart-icon {
+    font-size: 1.1rem;
     font-weight: bold;
-}
-
-.navbar a:hover {
-    color: #e63946;
 }
 
 /* Hero Section */
@@ -63,7 +57,7 @@ body {
     border-radius: 5px;
 }
 
-/* Catálogo de Productos y Desplegable */
+/* Catálogo de Productos */
 .products-section {
     padding: 40px 5%;
     text-align: center;
@@ -118,6 +112,7 @@ body {
     height: 220px;
     object-fit: contain;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .product-card h3 {
@@ -377,11 +372,7 @@ footer {
     font-size: 0.95rem;
 }
 
-.product-card img {
-    cursor: pointer; /* Cambia el cursor a una mano al pasar sobre la imagen */
-}
-
-/* Selector de vista compacto a la derecha */
+/* Selector de vista compacto */
 .view-toggle-btns {
     display: flex;
     justify-content: flex-end;
@@ -403,7 +394,7 @@ footer {
     background: #f0f0f0;
 }
 
-/* Estilos de la vista de lista basada en tu primer diseño */
+/* Vista de lista */
 .products-grid.view-list {
     display: flex;
     flex-direction: column;
@@ -425,7 +416,6 @@ footer {
     object-fit: contain;
 }
 
-/* Ajuste del botón compacto en la vista de lista */
 .products-grid.view-list .product-card .btn-card {
     width: auto !important;
     min-width: 140px;
@@ -435,9 +425,8 @@ footer {
     border-radius: 5px;
 }
 
-/* Cambia el texto visual del botón a "Añadir al carrito" solo en vista de lista */
 .products-grid.view-list .product-card .btn-card {
-    font-size: 0; /* Oculta el texto original "Comprar ahora" */
+    font-size: 0;
 }
 
 .products-grid.view-list .product-card .btn-card::after {
@@ -445,35 +434,38 @@ footer {
     font-size: 0.85rem;
 }
 
-/* Media query para optimizar modales y tablas en dispositivos móviles */
+/* Adaptación para pantallas móviles */
 @media screen and (max-width: 600px) {
-    /* Permite desplazamiento horizontal en la tabla sin desbordar el modal */
+    .header {
+        padding: 12px 15px;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+
     .cart-modal-body {
         overflow-x: auto;
     }
 
-    /* Reduce el padding y ajusta la tipografía de la tabla para pantallas pequeñas */
     .cart-modal-table th, 
     .cart-modal-table td {
         padding: 6px 4px;
         font-size: 0.8rem;
     }
 
-    /* Minimiza el tamaño de las tarjetas e insumos del carrito */
     .cart-qty-btn {
         width: 20px;
         height: 20px;
         font-size: 0.75rem;
     }
 
-    /* Asegura que las ventanas emergentes ocupen el ancho adecuado del dispositivo */
     .modal-content {
         width: 95% !important;
         margin: 5% auto;
         padding: 15px !important;
     }
 
-    /* Apila los botones de acción del carrito para facilitar el toque con el pulgar */
     .modal-actions {
         flex-direction: column;
         gap: 8px;
@@ -482,49 +474,5 @@ footer {
     .btn-checkout-modal, .btn-clear-modal {
         width: 100%;
         text-align: center;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    /* 1. Fuerza al contenedor principal del header a usar layout flexible en columna */
-    header, nav, .navbar, .header-container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        padding: 10px 5px !important;
-        height: auto !important;
-    }
-
-    /* 2. Separa el Logo y el Carrito en la parte superior */
-    .logo, .brand, .nav-brand, header h1, header h2 {
-        margin-bottom: 5px !important;
-        text-align: center !important;
-    }
-
-    /* 3. Reacomoda la lista de enlaces para que NO se encimen */
-    header ul, nav ul, .nav-links, .menu {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 8px 12px !important;
-        padding: 0 !important;
-        margin: 8px 0 0 0 !important;
-        width: 100% !important;
-        list-style: none !important;
-    }
-
-    /* 4. Ajusta el tamaño del texto de los enlaces */
-    header ul li, nav ul li, .nav-links a, nav a {
-        font-size: 0.85rem !important;
-        white-space: nowrap !important;
-        display: inline-block !important;
-    }
-
-    /* 5. Asegura que la tabla del carrito no se deforme */
-    .cart-modal-body, table {
-        display: block !important;
-        overflow-x: auto !important;
-        white-space: nowrap !important;
     }
 }
