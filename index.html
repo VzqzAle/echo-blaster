@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo Blaster</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cart-modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .cart-modal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .cart-modal-table th, .cart-modal-table td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-modal-table th {
+            background-color: #f8f9fa;
+            font-size: 0.9rem;
+        }
+
+        .cart-qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cart-qty-btn {
+            background-color: #e0e0e0;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-qty-btn:hover {
+            background-color: #cccccc;
+        }
+
+        .delete-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .delete-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .cart-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+
+        .btn-checkout-modal {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .btn-clear-modal {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .shipping-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            margin: 15px 0;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #25d366;
+        }
+
+        .checkout-box {
+            text-align: center;
+            padding: 10px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .checkout-box ul {
+            text-align: left;
+            background: #f9f9f9;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin: 10px 0;
+            list-style-type: square;
+        }
+
+        .confirm-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .confirm-btn:hover {
+            background-color: #218838;
+        }
+
+        .features-list {
+            text-align: left;
+            margin-top: 8px;
+            padding-left: 20px;
+        }
+
+        .features-list li {
+            margin-bottom: 4px;
+            color: #444;
+        }
+
+        .view-toggle-btns {
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .view-btn {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border: 1px solid #ccc;
+            background: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-add, .btn-buy {
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+            text-align: center;
+        }
+
+        .btn-add:hover, .btn-buy:hover {
+            transform: translateY(-1px);
+        }
+
+        .product-card .btn-add {
+            display: none;
+        }
+
+        /* Botón negro en modo cuadrícula */
+        .product-card .btn-buy {
+            display: block;
+            width: 100%;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .product-card .btn-buy:hover {
+            background-color: #222222;
+        }
+
+        .products-grid.view-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .products-grid.view-list .product-card {
+            display: grid;
+            grid-template-columns: 80px 1fr 140px auto;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            text-align: left;
+        }
+
+        .products-grid.view-list .product-card img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            margin: 0 auto;
+        }
+
+        .products-grid.view-list .product-card h3 {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .products-grid.view-list .product-card .price {
+            margin: 0;
+            text-align: center;
+            font-weight: bold;
+            color: #d9534f;
+            white-space: nowrap;
+        }
+
+        .products-grid.view-list .product-card .card-actions {
+            display: flex;
+            gap: 8px;
+            width: auto;
+        }
+
+        .products-grid.view-list .product-card .btn-add {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        /* Botón verde en modo lista */
+        .products-grid.view-list .product-card .btn-buy {
+            display: inline-block;
+            width: auto;
+            background-color: #25d366;
+            color: #fff;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        .products-grid.view-list .product-card .btn-buy:hover {
+            background-color: #1eb954;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">Echo Blaster</div>
+        <nav class="navbar">
+            <a href="#" onclick="showCategory('all')">Inicio</a>
+            <a href="#productos" onclick="showCategory('audifonos')">Electrónicos</a>
+            <a href="#productos" onclick="showCategory('perfumes')">Perfumes</a>
+            <a href="#contacto">Mayoreo / Contacto</a>
+        </nav>
+        <div class="cart-icon" id="cart-counter" onclick="openCartModal()" style="cursor: pointer;">🛒 (0)</div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Audífonos & Perfumes</h1>
+            <p>Encuentra la mejor calidad en audio y las mejores fragancias al mejor precio.</p>
+        </div>
+    </section>
+
+    <section class="products-section" id="productos">
+        <h2>Revisa nuestros artículos</h2>
+        
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="showCategory('all')">Todos los artículos</button>
+            <button class="tab-btn" onclick="showCategory('audifonos')">🎧 Electrónicos</button>
+            <button class="tab-btn" onclick="showCategory('perfumes')">✨ Perfumes</button>
+        </div>
+
+        <div class="view-toggle-btns">
+            <button class="view-btn" onclick="setView('grid')">🔲 Cuadrícula</button>
+            <button class="view-btn" onclick="setView('list')">☰ Lista</button>
+        </div>
+
+        <div class="category-block" id="audifonos-section">
+            <h3 class="category-title">🎧 Electrónicos Disponibles</h3>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="electronicos/airpd_2.jpg" alt="Airpods pro 2" 
+                         onclick="openModal('electronicos/airpd_2.jpg', 'Airpods pro 2 (calidad original sin cancelación)', '$300.00 MXN', 'AUDIO-01', 'Electrónicos', ['Carga inalámbrica', 'Entrada Tipo C', 'Animación', 'Ticket', 'Empaquetado premium', 'Cuenta con cargador'])" style="cursor:pointer;">
+                    <h3>Airpods pro 2 (calidad original sin cancelación)</h3>
+                    <p class="price">$300.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('Airpods pro 2 (calidad original sin cancelación)', 300)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('Airpods pro 2 (calidad original sin cancelación)', 300)">Comprar ahora</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-block" id="perfumes-section">
+            <h3 class="category-title">✨ Perfumes Disponibles</h3>
+            <div class="products-grid">
+
+                <div class="product-card">
+                    <img src="perfumes/devil_red.jpg" alt="Perfume Double Nature Devil" 
+                         onclick="openModal('perfumes/devil_red.jpg', 'Double Nature Devil Agua de Tocador 50 ml', '$270.00 MXN', '81211', 'Fragancias', { family: 'Fragancia Chypre Frutal Floral', notes: 'Pitahaya, Geranio Rojo y Manzana Caramelizada' })" style="cursor:pointer;">
+                    <h3>Double Nature Devil Agua de Tocador 50 ml</h3>
+                    <p class="price">$270.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('Double Nature Devil Agua de Tocador 50 ml', 270)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('Double Nature Devil Agua de Tocador 50 ml', 270)">Comprar ahora</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="perfumes/devil_black.jpg" alt="Perfume Double Nature Sexy"
+                         onclick="openModal('perfumes/devil_black.jpg', 'Double Nature Sexy Agua de Tocador 50 ml', '$270.00 MXN', '81212', 'Fragancias', { family: 'Fragancia Floral Frutal Amaderada', notes: 'Durazno blanco, flor de hibisco y caña de azúcar' })" style="cursor:pointer;">
+                    <h3>Double Nature Sexy Agua de Tocador 50 ml</h3>
+                    <p class="price">$270.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('Double Nature Sexy Agua de Tocador 50 ml', 270)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('Double Nature Sexy Agua de Tocador 50 ml', 270)">Comprar ahora</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="perfumes/devil_pink.jpg" alt="Perfume Double Nature Tender"
+                         onclick="openModal('perfumes/devil_pink.jpg', 'Double Nature Tender Agua de Tocador 50 ml', '$270.00 MXN', '81213', 'Fragancias', { family: 'Fragancia Floral Verde Frutas Exóticas', notes: 'Sandía, flor de cerezo y almizcle' })" style="cursor:pointer;">
+                    <h3>Double Nature Tender Agua de Tocador 50 ml</h3>
+                    <p class="price">$270.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('Double Nature Tender Agua de Tocador 50 ml', 270)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('Double Nature Tender Agua de Tocador 50 ml', 270)">Comprar ahora</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="perfumes/devil_aqua.jpg" alt="Perfume Double Nature Peace"
+                         onclick="openModal('perfumes/devil_aqua.jpg', 'Double Nature Peace Agua de Tocador 50 ml', '$270.00 MXN', '81214', 'Fragancias', { family: 'Fragancia Floral Frutal Verde', notes: 'Mango, flores de jacinto y almizcles puros' })" style="cursor:pointer;">
+                    <h3>Double Nature Peace Agua de Tocador 50 ml</h3>
+                    <p class="price">$270.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('Double Nature Peace Agua de Tocador 50 ml', 270)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('Double Nature Peace Agua de Tocador 50 ml', 270)">Comprar ahora</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="perfumes/devil_purple.jpg" alt="Perfume Double Nature Wild"
+                         onclick="openModal('perfumes/devil_purple.jpg', 'Double Nature Wild Agua de Tocador 50 ml', '$270.00 MXN', '81215', 'Fragancias', { family: 'Fragancia Oriental Vainillosa Amaderada', notes: 'Grosella roja, jazmín aterciopelado y haba tonka' })" style="cursor:pointer;">
+                    <h3>Double Nature Wild Agua de Tocador 50 ml</h3>
+                    <p class="price">$270.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('Double Nature Wild Agua de Tocador 50 ml', 270)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('Double Nature Wild Agua de Tocador 50 ml', 270)">Comprar ahora</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="perfumes/devil_gold.jpg" alt="Perfume Double Nature Glam"
+                         onclick="openModal('perfumes/devil_gold.jpg', 'Double Nature Glam Agua de Tocador 100 ml', '$500.00 MXN', '81216', 'Fragancias', { family: 'Fragancia Oriental Afrutada Floral', notes: 'Frambuesa, muguet y notas gourmand' })" style="cursor:pointer;">
+                    <h3>Double Nature Glam Agua de Tocador 100 ml</h3>
+                    <p class="price">$500.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('Double Nature Glam Agua de Tocador 100 ml', 500)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('Double Nature Glam Agua de Tocador 100 ml', 500)">Comprar ahora</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="perfumes/veseen_green.jpg" alt="Perfume Vesen Life"
+                         onclick="openModal('perfumes/veseen_green.jpg', 'Vesen Life Agua de Tocador 50 ml', '$500.00 MXN', '81217', 'Fragancias', { family: 'Fragancia Oriental Floral', notes: 'Frutos rojos, bouquet floral y haba tonka' })" style="cursor:pointer;">
+                    <h3>Vesen Life Agua de Tocador 50 ml</h3>
+                    <p class="price">$500.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('Vesen Life Agua de Tocador 50 ml', 500)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('Vesen Life Agua de Tocador 50 ml', 500)">Comprar ahora</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="perfumes/veseen_orange.jpg" alt="Perfume Vesen"
+                         onclick="openModal('perfumes/veseen_orange.jpg', 'Vesen Agua de Tocador 50 ml', '$500.00 MXN', '81211', 'Fragancias', { family: 'Fragancia Floriental Frutal', notes: 'Bergamota, rosas y pachulí' })" style="cursor:pointer;">
+                    <h3>Vesen Agua de Tocador 50 ml</h3>
+                    <p class="price">$500.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('Vesen Agua de Tocador 50 ml', 500)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('Vesen Agua de Tocador 50 ml', 500)">Comprar ahora</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="wholesale-section" id="contacto">
+        <h2>¿Te interesan nuestros productos al mayoreo?</h2>
+        <p>Contáctanos directamente para obtener precios especiales por volumen.</p>
+        <div class="social-buttons">
+            <a href="https://wa.link/9ef52l" target="_blank" class="btn-social whatsapp">
+                📲 Contáctanos por WhatsApp
+            </a>
+            <a href="https://www.instagram.com/echoblast3r?stkn=aDR3N3Z4cDhzN2k3" target="_blank" class="btn-social instagram">
+                📸 Síguenos en Instagram
+            </a>
+        </div>
+    </section>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('product-modal')">&times;</span>
+            <div class="modal-body">
+                <div class="modal-img-container">
+                    <img id="modal-img" src="" alt="Producto">
+                </div>
+                
+                <div class="modal-info">
+                    <span class="category-tag" id="modal-tag">Fragancias</span>
+                    <h2 id="modal-title">Nombre del Producto</h2>
+                    <p class="sku" id="modal-sku">SKU: 81211</p>
+                    <p class="price" id="modal-price">$0.00 MXN</p>
+
+                    <div class="purchase-controls">
+                        <div class="quantity-selector">
+                            <button onclick="changeQuantity(-1)">-</button>
+                            <span id="qty-count">1</span>
+                            <button onclick="changeQuantity(1)">+</button>
+                        </div>
+                        <button class="btn-add-cart" onclick="addFromModal()">Añadir Al Carrito 🛍️</button>
+                    </div>
+
+                    <hr class="divider">
+                    <div id="modal-details-section"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('cart-modal')">&times;</span>
+            <div class="cart-modal-body">
+                <h2>🛒 Tu Carrito de Compras</h2>
+                <div id="cart-modal-items"></div>
+                <div class="cart-summary">
+                    <span>Total General:</span>
+                    <span id="cart-modal-total">$0.00 MXN</span>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-clear-modal" onclick="clearCart()">Vaciar Carrito</button>
+                    <button class="btn-checkout-modal" onclick="openCartCheckout()">Proceder a la Compra ➔</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('checkout-modal')">&times;</span>
+            <div class="checkout-box">
+                <h2>Confirmación de Pedido y Datos de Envío</h2>
+                <p style="font-size:0.9rem; color:#555;">Revisa tu pedido e ingresa tus datos de entrega:</p>
+                
+                <div id="checkout-summary"></div>
+
+                <div class="shipping-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ship-name">Nombre completo *</label>
+                            <input type="text" id="ship-name" placeholder="Ej. Juan Pérez" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ship-phone">Teléfono de contacto *</label>
+                            <input type="tel" id="ship-phone" placeholder="Ej. 5512345678" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ship-street">Calle y número (Exterior/Interior) *</label>
+                        <input type="text" id="ship-street" placeholder="Ej. Av. Insurgentes Sur 123, Int 4" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ship-colony">Colonia / Fraccionamiento *</label>
+                            <input type="text" id="ship-colony" placeholder="Ej. Del Valle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ship-cp">Código Postal (C.P.) *</label>
+                            <input type="text" id="ship-cp" placeholder="Ej. 03100" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ship-city">Ciudad / Municipio *</label>
+                            <input type="text" id="ship-city" placeholder="Ej. Benito Juárez" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ship-state">Estado *</label>
+                            <input type="text" id="ship-state" placeholder="Ej. CDMX" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ship-notes">Descripción del lugar / Referencias (Opcional)</label>
+                        <textarea id="ship-notes" rows="2" placeholder="Ej. Portón blanco, entre calle Juárez e Hidalgo..."></textarea>
+                    </div>
+                </div>
+
+                <p><strong>Total a confirmar: <span id="checkout-total-price">$0.00 MXN</span></strong></p>
+                <br>
+                <button class="confirm-btn" onclick="confirmPurchase()">Confirmar y Enviar Pedido por WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Echo Blaster. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function showCategory(category) {
+            const audifonosSec = document.getElementById('audifonos-section');
+            const perfumesSec = document.getElementById('perfumes-section');
+            const tabButtons = document.querySelectorAll('.tab-btn');
+
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+
+            if (category === 'audifonos') {
+                audifonosSec.style.display = 'block';
+                perfumesSec.style.display = 'none';
+                if(tabButtons[1]) tabButtons[1].classList.add('active');
+            } else if (category === 'perfumes') {
+                audifonosSec.style.display = 'none';
+                perfumesSec.style.display = 'block';
+                if(tabButtons[2]) tabButtons[2].classList.add('active');
+            } else {
+                audifonosSec.style.display = 'block';
+                perfumesSec.style.display = 'block';
+                if(tabButtons[0]) tabButtons[0].classList.add('active');
+            }
+        }
+
+        let cart = [];
+        let itemsToCheckout = []; // Almacena únicamente los elementos del pedido actual a cobrar
+        let currentModalProduct = null;
+
+        function extractPrice(priceString) {
+            if (typeof priceString === 'number') return priceString;
+            return parseFloat(priceString.replace(/[^0-9.]/g, '')) || 0;
+        }
+
+        function addToCart(title, price, quantity) {
+            const numericPrice = extractPrice(price);
+            const existingIndex = cart.findIndex(item => item.title === title);
+
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += quantity;
+            } else {
+                cart.push({ title, price: numericPrice, quantity });
+            }
+
+            updateCartBadge();
+        }
+
+        function addToCartDirect(title, price) {
+            addToCart(title, price, 1);
+        }
+
+        /* 
+         * COMPRA ÚNICA INDEPENDIENTE: 
+         * No modifica ni consulta el arreglo 'cart'. 
+         * Carga únicamente este ítem en 'itemsToCheckout' y abre el checkout.
+         */
+        function buySingleProduct(title, price) {
+            const numericPrice = extractPrice(price);
+            itemsToCheckout = [{ title: title, price: numericPrice, quantity: 1 }];
+            showCheckoutScreen();
+        }
+
+        /* 
+         * COMPRA DE CARRITO COMPLETO: 
+         * Asigna la lista acumulada de 'cart' a 'itemsToCheckout'.
+         */
+        function openCartCheckout() {
+            if (cart.length === 0) {
+                alert("Primero debes añadir productos a tu carrito.");
+                return;
+            }
+            itemsToCheckout = [...cart];
+            closeModal('cart-modal');
+            showCheckoutScreen();
+        }
+
+        function showCheckoutScreen() {
+            const summaryContainer = document.getElementById('checkout-summary');
+            const totalDisplay = document.getElementById('checkout-total-price');
+            
+            let html = '<ul>';
+            let total = 0;
+            
+            itemsToCheckout.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                html += `<li><strong>${item.quantity}x</strong> ${item.title} - $${subtotal}.00 MXN</li>`;
+            });
+            
+            html += '</ul>';
+            summaryContainer.innerHTML = html;
+            totalDisplay.innerText = `$${total}.00 MXN`;
+            
+            document.getElementById('checkout-modal').style.display = 'flex';
+        }
+
+        function updateItemQuantity(index, delta) {
+            if (cart[index]) {
+                cart[index].quantity += delta;
+                if (cart[index].quantity <= 0) {
+                    cart.splice(index, 1);
+                }
+                updateCartBadge();
+                renderCartModal();
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartBadge();
+            renderCartModal();
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartBadge();
+            renderCartModal();
+        }
+
+        function updateCartBadge() {
+            const counter = document.getElementById('cart-counter');
+            let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            counter.innerText = `🛒 (${totalItems})`;
+        }
+
+        let currentQty = 1;
+
+        function openModal(imgSrc, title, price, sku, category, details) {
+            document.getElementById('modal-img').src = imgSrc;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-price').innerText = price;
+            document.getElementById('modal-sku').innerText = 'SKU: ' + sku;
+            document.getElementById('modal-tag').innerText = category;
+
+            const detailsSection = document.getElementById('modal-details-section');
+
+            if (Array.isArray(details)) {
+                let listHtml = `
+                    <div class="aroma-section">
+                        <div class="aroma-pill">CARACTERÍSTICAS</div>
+                        <ul class="features-list">
+                `;
+                details.forEach(item => {
+                    listHtml += `<li>${item}</li>`;
+                });
+                listHtml += `</ul></div>`;
+                detailsSection.innerHTML = listHtml;
+            } else if (typeof details === 'object' && details !== null) {
+                detailsSection.innerHTML = `
+                    <div class="aroma-section">
+                        <div class="aroma-pill">AROMA</div>
+                        <p class="fragrance-family">${details.family || ''}</p>
+                        <p class="notes">${details.notes || ''}</p>
+                    </div>
+                `;
+            } else {
+                detailsSection.innerHTML = '';
+            }
+
+            currentQty = 1;
+            document.getElementById('qty-count').innerText = currentQty;
+            
+            currentModalProduct = { title, price };
+            document.getElementById('product-modal').style.display = 'flex';
+        }
+
+        function addFromModal() {
+            if (currentModalProduct) {
+                addToCart(currentModalProduct.title, currentModalProduct.price, currentQty);
+                closeModal('product-modal');
+            }
+        }
+
+        function changeQuantity(amount) {
+            if (currentQty + amount >= 1) {
+                currentQty += amount;
+                document.getElementById('qty-count').innerText = currentQty;
+            }
+        }
+
+        function openCartModal() {
+            renderCartModal();
+            document.getElementById('cart-modal').style.display = 'flex';
+        }
+
+        function renderCartModal() {
+            const container = document.getElementById('cart-modal-items');
+            const totalDisplay = document.getElementById('cart-modal-total');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align:center; padding: 20px; color:#777;">Tu carrito está totalmente vacío.</p>';
+                totalDisplay.innerText = '$0.00 MXN';
+                return;
+            }
+
+            let html = `
+                <table class="cart-modal-table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cant.</th>
+                            <th>Precio U.</th>
+                            <th>Subtotal</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            let total = 0;
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                html += `
+                    <tr>
+                        <td><strong>${item.title}</strong></td>
+                        <td>
+                            <div class="cart-qty-controls">
+                                <button class="cart-qty-btn" onclick="updateItemQuantity(${index}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="cart-qty-btn" onclick="updateItemQuantity(${index}, 1)">+</button>
+                            </div>
+                        </td>
+                        <td>$${item.price}.00</td>
+                        <td>$${subtotal}.00</td>
+                        <td><button class="delete-btn" onclick="removeFromCart(${index})" title="Eliminar todo">🗑️</button></td>
+                    </tr>
+                `;
+            });
+
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+            totalDisplay.innerText = `$${total}.00 MXN`;
+        }
+
+        function confirmPurchase() {
+            const name = document.getElementById('ship-name').value.trim();
+            const phone = document.getElementById('ship-phone').value.trim();
+            const street = document.getElementById('ship-street').value.trim();
+            const colony = document.getElementById('ship-colony').value.trim();
+            const cp = document.getElementById('ship-cp').value.trim();
+            const city = document.getElementById('ship-city').value.trim();
+            const state = document.getElementById('ship-state').value.trim();
+            const notes = document.getElementById('ship-notes').value.trim();
+
+            if (!name || !phone || !street || !colony || !cp || !city || !state) {
+                alert("Por favor completa todos los campos requeridos con (*) para poder realizar el envío.");
+                return;
+            }
+
+            let message = "📦 *NUEVO PEDIDO - ECHO BLASTER*\n\n";
+            message += "👤 *Datos del Cliente:*\n";
+            message += `- *Nombre:* ${name}\n`;
+            message += `- *Teléfono:* ${phone}\n\n`;
+
+            message += "📍 *Dirección de Entrega:*\n";
+            message += `- *Calle y No:* ${street}\n`;
+            message += `- *Colonia:* ${colony}\n`;
+            message += `- *C.P.:* ${cp}\n`;
+            message += `- *Ciudad/Municipio:* ${city}\n`;
+            message += `- *Estado:* ${state}\n`;
+            
+            if (notes) {
+                message += `- *Referencias:* ${notes}\n`;
+            }
+            message += "\n";
+
+            message += "🛒 *Resumen del Pedido:*\n";
+            let total = 0;
+            itemsToCheckout.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                message += `- ${item.quantity}x ${item.title} ($${subtotal} MXN)\n`;
+            });
+
+            message += `\n💰 *Total a pagar: $${total} MXN*`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.link/9ef52l?text=${encodedMessage}`, '_blank');
+        }
+
+        function setView(viewType) {
+            const grids = document.querySelectorAll('.products-grid');
+            grids.forEach(grid => {
+                if (viewType === 'list') {
+                    grid.classList.add('view-list');
+                } else {
+                    grid.classList.remove('view-list');
+                }
+            });
+        }
+
+        function closeModal(modalId) {
+            const targetId = modalId || 'product-modal';
+            document.getElementById(targetId).style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>
