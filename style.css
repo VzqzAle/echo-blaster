@@ -486,37 +486,45 @@ footer {
 }
 
 @media screen and (max-width: 600px) {
-    /* Alinea el encabezado principal en columna con espacio limpio */
-    header, nav, .navbar {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px 15px;
-        gap: 10px;
+    /* 1. Fuerza al contenedor principal del header a usar layout flexible en columna */
+    header, nav, .navbar, .header-container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        padding: 10px 5px !important;
+        height: auto !important;
     }
 
-    /* Fila superior: Logo a la izquierda, Carrito a la derecha */
-    .header-top, .nav-brand-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
+    /* 2. Separa el Logo y el Carrito en la parte superior */
+    .logo, .brand, .nav-brand, header h1, header h2 {
+        margin-bottom: 5px !important;
+        text-align: center !important;
     }
 
-    /* Acomoda los enlaces del menú en una fila limpia con desplazamiento o en cuadrícula */
-    .nav-links, ul.nav-menu {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px 12px;
-        padding: 0;
-        margin: 5px 0 0 0;
-        width: 100%;
+    /* 3. Reacomoda la lista de enlaces para que NO se encimen */
+    header ul, nav ul, .nav-links, .menu {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 8px 12px !important;
+        padding: 0 !important;
+        margin: 8px 0 0 0 !important;
+        width: 100% !important;
+        list-style: none !important;
     }
 
-    /* Tamaño de letra optimizado para los enlaces en móvil */
-    .nav-links a, ul.nav-menu a {
-        font-size: 0.85rem;
-        white-space: nowrap;
+    /* 4. Ajusta el tamaño del texto de los enlaces */
+    header ul li, nav ul li, .nav-links a, nav a {
+        font-size: 0.85rem !important;
+        white-space: nowrap !important;
+        display: inline-block !important;
+    }
+
+    /* 5. Asegura que la tabla del carrito no se deforme */
+    .cart-modal-body, table {
+        display: block !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
     }
 }
