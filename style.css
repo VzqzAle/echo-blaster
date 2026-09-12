@@ -362,3 +362,66 @@ footer {
         width: 100% !important;
     }
 }
+
+/* ==========================================
+   AJUSTES PRECISOS PARA MÓVIL
+   ========================================== */
+@media (max-width: 768px) {
+    /* 1. Ocultar "Añadir al carrito" en modo Cuadrícula */
+    .products-grid:not(.view-list) .btn-add {
+        display: none !important;
+    }
+
+    /* 2. Formato de la Vista Lista compacta (Horizontal) */
+    .products-grid.view-list .product-card {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        text-align: left !important;
+        padding: 10px !important;
+        gap: 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Imagen pequeña a la izquierda */
+    .products-grid.view-list .product-card img {
+        width: 80px !important;
+        height: 80px !important;
+        object-fit: contain !important;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Título y precio al centro */
+    .products-grid.view-list .product-card h3 {
+        font-size: 0.9rem !important;
+        margin-bottom: 4px !important;
+    }
+
+    .products-grid.view-list .product-card .price {
+        font-size: 0.95rem !important;
+        margin: 0 !important;
+    }
+
+    /* Botones a la derecha en columna */
+    .products-grid.view-list .card-actions {
+        display: flex !important;
+        flex-direction: column !important;
+        margin-left: auto !important;
+        gap: 5px !important;
+        min-width: 110px !important;
+    }
+
+    /* Mostrar "Añadir al carrito" únicamente en la lista */
+    .products-grid.view-list .btn-add {
+        display: block !important;
+        padding: 6px 8px !important;
+        font-size: 0.75rem !important;
+    }
+
+    .products-grid.view-list .btn-buy {
+        padding: 6px 8px !important;
+        font-size: 0.75rem !important;
+    }
+}
