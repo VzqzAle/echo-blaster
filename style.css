@@ -2,426 +2,629 @@
    1. REINICIO Y ESTILOS GENERALES
    ========================================== */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
-    background-color: #f4f6f8;
-    color: #333333;
-    line-height: 1.6;
+    background-color: #f8f9fa;
+    color: #333;
 }
 
 /* ==========================================
    2. ENCABEZADO Y NAVEGACIÓN
    ========================================== */
 .header {
-    background-color: #111111;
-    color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #111;
+    color: #fff;
     padding: 15px 5%;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    letter-spacing: 1px;
 }
 
 .cart-icon {
     font-size: 1.1rem;
-    background-color: #25d366;
-    color: #ffffff;
-    padding: 8px 16px;
-    border-radius: 20px;
     font-weight: bold;
-    transition: background-color 0.2s ease;
-}
-
-.cart-icon:hover {
-    background-color: #1ebc57;
+    cursor: pointer;
 }
 
 /* ==========================================
-   3. SECCIÓN HERO
+   3. SECCIÓN HERO (DEGRADADO MORADO ORIGINAL)
    ========================================== */
 .hero {
-    background: linear-gradient(135deg, #111111 0%, #2a2a2a 100%);
-    color: #ffffff;
+    background: linear-gradient(135deg, #111111, #560fd0);
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    padding: 50px 20px;
+    color: #fff;
 }
 
-.hero h1 {
-    font-size: 2.2rem;
-    margin-bottom: 10px;
+.hero h1 { 
+    font-size: 2.2rem; 
+    margin-bottom: 10px; 
 }
 
-.hero p {
-    font-size: 1.1rem;
-    color: #cccccc;
+.btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #d21525;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
 }
 
 /* ==========================================
-   4. SECCIÓN DE PRODUCTOS Y CONTROLES
+   4. CATÁLOGO Y PESTAÑAS (TABS)
    ========================================== */
 .products-section {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
-}
-
-.products-section h2 {
+    padding: 40px 5%;
     text-align: center;
-    margin-bottom: 20px;
 }
 
 .tabs-container {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
     margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
 .tab-btn {
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    padding: 10px 20px;
+    padding: 10px 22px;
+    border: 2px solid #111;
+    background-color: #fff;
+    color: #111;
+    font-size: 1rem;
+    font-weight: bold;
     border-radius: 25px;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
-.tab-btn.active, .tab-btn:hover {
-    background-color: #111111;
-    color: #ffffff;
-    border-color: #111111;
+.tab-btn:hover, .tab-btn.active {
+    background-color: #e63946;
+    color: #fff;
+    border-color: #e63946;
 }
 
 .view-toggle-btns {
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 6px;
+    margin-bottom: 15px;
 }
 
 .view-btn {
-    background: #ffffff;
+    padding: 5px 10px;
+    font-size: 0.8rem;
     border: 1px solid #ccc;
-    padding: 6px 12px;
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-btn:hover {
+    background: #f0f0f0;
+}
+
+.category-block {
+    margin-bottom: 50px;
+}
+
+.category-title {
+    text-align: left;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #e63946;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    color: #111;
+}
+
+/* ==========================================
+   5. MODO CUADRÍCULA (PC BASE)
+   ========================================== */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.product-card img {
+    max-width: 100%;
+    height: 220px;
+    object-fit: contain;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.category-block {
-    margin-bottom: 40px;
-}
-
-.category-title {
-    font-size: 1.4rem;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #25d366;
-    display: inline-block;
-    padding-bottom: 5px;
-}
-
-/* ==========================================
-   5. TARJETAS DE PRODUCTO
-   ========================================== */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.product-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-}
-
-.product-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: contain;
-    border-radius: 8px;
-    margin-bottom: 12px;
-}
-
 .product-card h3 {
-    font-size: 1rem;
-    margin-bottom: 8px;
-    color: #222222;
+    font-size: 1.1rem;
+    margin: 15px 0 10px;
 }
 
-.product-card .price {
+.price {
     font-size: 1.2rem;
+    color: #e63946;
     font-weight: bold;
-    color: #d9534f;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .card-actions {
     display: flex;
-    flex-direction: column;
     gap: 8px;
-}
-
-.btn-add {
-    background-color: #25d366;
-    color: #ffffff;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
     width: 100%;
-    transition: background-color 0.2s ease;
+    justify-content: center;
 }
 
-.btn-add:hover {
-    background-color: #1ebc57;
-}
-
-.btn-buy {
-    background-color: #111111;
-    color: #ffffff;
+.btn-add, .btn-buy {
+    padding: 10px 15px;
+    border-radius: 6px;
     border: none;
-    padding: 10px;
-    border-radius: 8px;
     font-weight: bold;
+    font-size: 0.9rem;
     cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+    text-align: center;
+}
+
+.btn-add:hover, .btn-buy:hover {
+    transform: translateY(-1px);
+}
+
+/* Ocultar "Añadir al carrito" en modo cuadrícula */
+.product-card .btn-add {
+    display: none;
+}
+
+/* Botón "Comprar ahora" en NEGRO para la cuadrícula */
+.product-card .btn-buy {
+    display: block;
     width: 100%;
-    transition: background-color 0.2s ease;
+    background-color: #111111 !important;
+    color: #ffffff !important;
 }
 
-.btn-buy:hover {
-    background-color: #333333;
+.product-card .btn-buy:hover {
+    background-color: #333333 !important;
 }
 
-/* Modo Lista (PC) */
+/* ==========================================
+   6. MODO LISTA (PC) - COLORES CORREGIDOS
+   ========================================== */
 .products-grid.view-list {
     display: flex;
     flex-direction: column;
+    gap: 12px;
 }
 
 .products-grid.view-list .product-card {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 80px 1fr 140px auto;
     align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
     text-align: left;
 }
 
 .products-grid.view-list .product-card img {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 0;
-    margin-right: 20px;
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    margin: 0 auto;
 }
 
-.products-grid.view-list .card-actions {
-    flex-direction: row;
-    margin-left: auto;
+.products-grid.view-list .product-card h3 {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.products-grid.view-list .product-card .price {
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+    color: #d9534f;
+    white-space: nowrap;
+}
+
+.products-grid.view-list .product-card .card-actions {
+    display: flex;
+    gap: 8px;
+    width: auto;
+}
+
+/* Botón "Añadir al carrito" -> VERDE */
+.products-grid.view-list .product-card .btn-add {
+    display: inline-block !important;
+    background-color: #25d366 !important;
+    color: #ffffff !important;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+.products-grid.view-list .product-card .btn-add:hover {
+    background-color: #1eb954 !important;
+}
+
+/* Botón "Comprar ahora" -> NEGRO */
+.products-grid.view-list .product-card .btn-buy {
+    display: inline-block !important;
+    width: auto;
+    background-color: #111111 !important;
+    color: #ffffff !important;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+.products-grid.view-list .product-card .btn-buy:hover {
+    background-color: #333333 !important;
 }
 
 /* ==========================================
-   6. SECCIÓN MAYOREO Y CONTACTO
+   7. ESTILOS DE MODALES (ESPECIFICACIONES, CARRITO Y CHECKOUT)
+   ========================================== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 12px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+}
+
+/* Modal Especificaciones */
+.modal-body {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.modal-img-container {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+}
+
+.modal-img-container img {
+    max-width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+}
+
+.modal-info {
+    flex: 1.2;
+    min-width: 280px;
+    text-align: left;
+}
+
+.modal-info h2 {
+    font-size: 1.8rem;
+    margin: 8px 0;
+    color: #2c3e50;
+}
+
+.modal-info .price {
+    font-size: 1.8rem;
+    color: #8e44ad;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.purchase-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 12px;
+}
+
+.quantity-selector button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.btn-add-cart {
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.btn-add-cart:hover {
+    background-color: #732d91;
+}
+
+.features-list {
+    text-align: left;
+    margin-top: 8px;
+    padding-left: 20px;
+}
+
+.features-list li {
+    margin-bottom: 4px;
+    color: #444;
+}
+
+/* Modal Carrito */
+.cart-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.cart-modal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.cart-modal-table th, .cart-modal-table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-modal-table th {
+    background-color: #f8f9fa;
+    font-size: 0.9rem;
+}
+
+.cart-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.btn-checkout-modal {
+    background-color: #25d366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.btn-clear-modal {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Formulario de Checkout */
+.shipping-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+    margin: 15px 0;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.form-group input, .form-group textarea {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+.confirm-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* ==========================================
+   8. SECCIÓN MAYOREO & FOOTER
    ========================================== */
 .wholesale-section {
-    background-color: #ffffff;
+    background-color: #222;
+    color: #fff;
+    padding: 50px 5%;
     text-align: center;
-    padding: 40px 20px;
-    margin-top: 40px;
-    border-top: 1px solid #e5e5e5;
+}
+
+.wholesale-section p {
+    margin: 10px 0 25px;
 }
 
 .social-buttons {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
 .btn-social {
+    padding: 12px 25px;
     text-decoration: none;
-    color: #ffffff;
-    padding: 12px 24px;
-    border-radius: 25px;
+    color: #fff;
     font-weight: bold;
-    display: inline-block;
+    border-radius: 25px;
+    transition: transform 0.2s;
 }
 
-.btn-social.whatsapp { background-color: #25d366; }
-.btn-social.instagram { background-color: #e1306c; }
-
-/* ==========================================
-   7. MODALES
-   ========================================== */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-}
-
-.modal-content {
-    background-color: #ffffff;
-    border-radius: 12px;
-    max-width: 600px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 25px;
-    position: relative;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-}
-
-.close-modal {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: #888888;
-}
+.whatsapp { background-color: #25D366; }
+.instagram { background-color: #E1306C; }
 
 footer {
+    background-color: #111;
+    color: #aaaaaaf7;
     text-align: center;
-    padding: 20px;
-    background-color: #111111;
-    color: #888888;
-    font-size: 0.85rem;
+    padding: 18px;
 }
 
 /* ==========================================
-   8. AJUSTES EXCLUSIVOS PARA MÓVIL
+   9. OPTIMIZACIÓN EXCLUSIVA PARA MÓVILES
    ========================================== */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     html, body {
-        max-width: 100% !important;
-        overflow-x: hidden !important;
+        max-width: 100%;
+        overflow-x: hidden;
     }
 
-    /* Corrección del desbordamiento en vista Lista */
-    .products-grid.view-list .product-card {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        text-align: center !important;
+    .header {
+        padding: 12px 15px;
     }
 
-    .products-grid.view-list .product-card img {
-        margin-right: 0 !important;
-        margin-bottom: 10px !important;
+    .logo {
+        font-size: 1.3rem;
     }
 
-    .products-grid.view-list .product-card .price {
-        margin: 10px 0 !important;
-        text-align: center !important;
+    .modal-content {
+        width: 95% !important;
+        margin: 5% auto;
+        padding: 15px !important;
     }
 
-    .products-grid.view-list .card-actions {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        margin-left: 0 !important;
-        gap: 8px !important;
+    .form-row {
+        flex-direction: column;
+        gap: 8px;
     }
 
-    .products-grid.view-list .card-actions button {
-        width: 100% !important;
-    }
-}
-
-/* ==========================================
-   AJUSTES PRECISOS PARA MÓVIL
-   ========================================== */
-@media (max-width: 768px) {
-    /* 1. Ocultar "Añadir al carrito" en modo Cuadrícula */
-    .products-grid:not(.view-list) .btn-add {
-        display: none !important;
-    }
-
-    /* 2. Formato de la Vista Lista compacta (Horizontal) */
+    /* Adaptación de la Vista Lista en teléfono */
     .products-grid.view-list .product-card {
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
-        text-align: left !important;
+        justify-content: space-between !important;
         padding: 10px !important;
-        gap: 12px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
+        gap: 10px !important;
     }
 
-    /* Imagen pequeña a la izquierda */
     .products-grid.view-list .product-card img {
-        width: 80px !important;
-        height: 80px !important;
-        object-fit: contain !important;
+        width: 60px !important;
+        height: 60px !important;
         margin: 0 !important;
-        flex-shrink: 0 !important;
     }
 
-    /* Título y precio al centro */
     .products-grid.view-list .product-card h3 {
-        font-size: 0.9rem !important;
-        margin-bottom: 4px !important;
+        font-size: 0.85rem !important;
     }
 
     .products-grid.view-list .product-card .price {
-        font-size: 0.95rem !important;
-        margin: 0 !important;
+        font-size: 0.85rem !important;
     }
 
-    /* Botones a la derecha en columna */
     .products-grid.view-list .card-actions {
-        display: flex !important;
         flex-direction: column !important;
-        margin-left: auto !important;
-        gap: 5px !important;
-        min-width: 110px !important;
+        gap: 4px !important;
     }
 
-    /* Mostrar "Añadir al carrito" únicamente en la lista */
-    .products-grid.view-list .btn-add {
-        display: block !important;
+    .products-grid.view-list .card-actions button {
         padding: 6px 8px !important;
         font-size: 0.75rem !important;
-    }
-
-    .products-grid.view-list .btn-buy {
-        padding: 6px 8px !important;
-        font-size: 0.75rem !important;
+        width: 100% !important;
     }
 }
