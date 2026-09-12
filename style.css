@@ -810,3 +810,32 @@ footer {
         padding: 12px;
     }
 }
+
+/* Corrección de desbordamiento horizontal en móviles */
+@media (max-width: 768px) {
+    /* Evita el scroll horizontal en toda la página */
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Adapta la vista de lista para pantallas estrechas */
+    .products-grid.view-list .product-card {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* Alinea botones dentro de la tarjeta sin salir del borde */
+    .products-grid.view-list .card-actions {
+        margin-left: 0 !important;
+        width: 100% !important;
+        flex-direction: column !important;
+        gap: 8px;
+    }
+
+    .products-grid.view-list .card-actions button {
+        width: 100% !important;
+    }
+}
