@@ -5,315 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Echo Blaster</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .cart-modal-body {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .cart-modal-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        .cart-modal-table th, .cart-modal-table td {
-            text-align: left;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-modal-table th {
-            background-color: #f8f9fa;
-            font-size: 0.9rem;
-        }
-
-        .cart-qty-controls {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .cart-qty-btn {
-            background-color: #e0e0e0;
-            border: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cart-qty-btn:hover {
-            background-color: #cccccc;
-        }
-
-        .delete-btn {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .delete-btn:hover {
-            background-color: #cc0000;
-        }
-
-        .cart-summary {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 15px;
-        }
-
-        .btn-checkout-modal {
-            background-color: #25d366;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .btn-clear-modal {
-            background-color: #6c757d;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .shipping-form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            text-align: left;
-            margin: 15px 0;
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 10px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .form-group label {
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 4px;
-            color: #333;
-        }
-
-        .form-group input, .form-group textarea {
-            padding: 8px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 0.95rem;
-            font-family: inherit;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #25d366;
-        }
-
-        .checkout-box {
-            text-align: center;
-            padding: 10px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .checkout-box ul {
-            text-align: left;
-            background: #f9f9f9;
-            padding: 15px 25px;
-            border-radius: 8px;
-            margin: 10px 0;
-            list-style-type: square;
-        }
-
-        .confirm-btn {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .confirm-btn:hover {
-            background-color: #218838;
-        }
-
-        .features-list {
-            text-align: left;
-            margin-top: 8px;
-            padding-left: 20px;
-        }
-
-        .features-list li {
-            margin-bottom: 4px;
-            color: #444;
-        }
-
-        .view-toggle-btns {
-            display: flex;
-            justify-content: flex-end;
-            gap: 6px;
-            margin-bottom: 15px;
-        }
-
-        .view-btn {
-            padding: 5px 10px;
-            font-size: 0.8rem;
-            border: 1px solid #ccc;
-            background: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .view-btn:hover {
-            background: #f0f0f0;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 8px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .btn-add, .btn-buy {
-            padding: 10px 15px;
-            border-radius: 6px;
-            border: none;
-            font-weight: bold;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background 0.2s ease, transform 0.1s ease;
-            text-align: center;
-        }
-
-        .btn-add:hover, .btn-buy:hover {
-            transform: translateY(-1px);
-        }
-
-        .product-card .btn-add {
-            display: none;
-        }
-
-        /* Botón negro en modo cuadrícula */
-        .product-card .btn-buy {
-            display: block;
-            width: 100%;
-            background-color: #000000;
-            color: #ffffff;
-        }
-
-        .product-card .btn-buy:hover {
-            background-color: #222222;
-        }
-
-        .products-grid.view-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .products-grid.view-list .product-card {
-            display: grid;
-            grid-template-columns: 80px 1fr 140px auto;
-            align-items: center;
-            gap: 15px;
-            padding: 12px 20px;
-            text-align: left;
-        }
-
-        .products-grid.view-list .product-card img {
-            width: 70px;
-            height: 70px;
-            object-fit: contain;
-            margin: 0 auto;
-        }
-
-        .products-grid.view-list .product-card h3 {
-            margin: 0;
-            font-size: 0.95rem;
-        }
-
-        .products-grid.view-list .product-card .price {
-            margin: 0;
-            text-align: center;
-            font-weight: bold;
-            color: #d9534f;
-            white-space: nowrap;
-        }
-
-        .products-grid.view-list .product-card .card-actions {
-            display: flex;
-            gap: 8px;
-            width: auto;
-        }
-
-        .products-grid.view-list .product-card .btn-add {
-            display: inline-block;
-            background-color: #333;
-            color: #fff;
-            padding: 8px 12px;
-            font-size: 0.85rem;
-            border-radius: 5px;
-            white-space: nowrap;
-        }
-
-        /* Botón verde en modo lista */
-        .products-grid.view-list .product-card .btn-buy {
-            display: inline-block;
-            width: auto;
-            background-color: #25d366;
-            color: #fff;
-            padding: 8px 12px;
-            font-size: 0.85rem;
-            border-radius: 5px;
-            white-space: nowrap;
-        }
-
-        .products-grid.view-list .product-card .btn-buy:hover {
-            background-color: #1eb954;
-        }
-    </style>
+    <!-- Librerías jsPDF para generación limpia y directa de PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
 
@@ -324,7 +18,7 @@
 
     <section class="hero">
         <div class="hero-text">
-            <h1>Audífonos & Perfumes</h1>
+            <h1>Electrónicos y Fragancias</h1>
             <p>Encuentra la mejor calidad en audio y las mejores fragancias al mejor precio.</p>
         </div>
     </section>
@@ -335,7 +29,7 @@
         <div class="tabs-container">
             <button class="tab-btn active" onclick="showCategory('all')">Todos los artículos</button>
             <button class="tab-btn" onclick="showCategory('audifonos')">🎧 Electrónicos</button>
-            <button class="tab-btn" onclick="showCategory('perfumes')">✨ Perfumes</button>
+            <button class="tab-btn" onclick="showCategory('perfumes')">🌠 Perfumes</button>
         </div>
 
         <div class="view-toggle-btns">
@@ -356,11 +50,44 @@
                         <button class="btn-buy" onclick="buySingleProduct('Airpods pro 2 (calidad original sin cancelación)', 300)">Comprar ahora</button>
                     </div>
                 </div>
+
+                <div class="product-card">
+                    <img src="electronicos/JBL_boombox4.jpg" alt="JBL_Bocinas" 
+                         onclick="openModal('electronicos/JBL_boombox4.jpg', 'JBL Boombox 4', '$2,200.00 MXN', 'AUDIO-01', 'Electrónicos',['1 JBL Boombox 4', 'Cable de alimentación de CA', '1 guía de inicio rápido', '1 hoja de seguridad', '1 tarjeta de garantía'])" style="cursor:pointer;">
+                    <h3>JBL Boombox 4</h3>
+                    <p class="price">$2,200.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('JBL Boombox 4', 2200)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('JBL Boombox 4', 2200)">Comprar ahora</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="electronicos/JBL_charge6.jpg" alt="JBL_Bocinas" 
+                         onclick="openModal('electronicos/JBL_charge6.jpg', 'JBL Charge 6', '$1,800.00 MXN', 'AUDIO-02', 'Electrónicos',['1 JBL Charge 6', 'Cable de alimentación USB-C', '1 guía de inicio rápido', '1 tarjeta de garantía'])" style="cursor:pointer;">
+                    <h3>JBL Charge 6</h3>
+                    <p class="price">$1,800.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('JBL Charge 6', 1800)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('JBL Charge 6', 1800)">Comprar ahora</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="electronicos/JBL_flip7.jpg" alt="JBL FLIP 7" 
+                         onclick="openModal('electronicos/JBL_flip7.jpg', 'JBL FLIP 7', '$1,150.00 MXN', 'AUDIO-03', 'Electrónicos', ['Marca: JBL', 'Potencia de salida máxima: 25 Watts', 'Respuesta de frecuencia: 20 Hz', 'Tecnología de conectividad: Bluetooth', 'Modo de salida de audio: Estéreo'])" style="cursor:pointer;">
+                    <h3>JBL FLIP 7</h3>
+                    <p class="price">$1,150.00 MXN</p>
+                    <div class="card-actions">
+                        <button class="btn-add" onclick="addToCartDirect('JBL FLIP 7', 1150)">Añadir al carrito 🛒</button>
+                        <button class="btn-buy" onclick="buySingleProduct('JBL FLIP 7', 1150)">Comprar ahora</button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="category-block" id="perfumes-section">
-            <h3 class="category-title">✨ Perfumes Disponibles</h3>
+            <h3 class="category-title">🌠 Perfumes Disponibles</h3>
             <div class="products-grid">
 
                 <div class="product-card">
@@ -582,6 +309,9 @@
     </footer>
 
     <script>
+        // Objeto global con los datos recopilados del formulario de envío
+        let lastOrderShipping = null;
+
         function showCategory(category) {
             const audifonosSec = document.getElementById('audifonos-section');
             const perfumesSec = document.getElementById('perfumes-section');
@@ -805,6 +535,111 @@
             totalDisplay.innerText = `$${total}.00 MXN`;
         }
 
+        // Generación nativa y limpia del PDF usando jsPDF
+        function downloadTicketPDF() {
+            if (!lastOrderShipping || !itemsToCheckout || itemsToCheckout.length === 0) {
+                alert("No hay datos suficientes para generar el comprobante.");
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a5'
+            });
+
+            // Encabezado
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(18);
+            doc.setTextColor(37, 211, 102);
+            doc.text("Echo Blaster", 74, 15, { align: "center" });
+
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(100, 100, 100);
+            doc.text("Comprobante de Pedido", 74, 21, { align: "center" });
+            doc.text(`Fecha: ${new Date().toLocaleDateString('es-MX')}`, 74, 26, { align: "center" });
+
+            // Línea divisora
+            doc.setDrawColor(37, 211, 102);
+            doc.setLineWidth(0.8);
+            doc.line(10, 29, 138, 29);
+
+            // Datos del cliente
+            doc.setFontSize(9);
+            doc.setTextColor(30, 30, 30);
+            let y = 36;
+            
+            doc.setFont("helvetica", "bold"); doc.text("Cliente:", 12, y);
+            doc.setFont("helvetica", "normal"); doc.text(lastOrderShipping.name, 30, y);
+            
+            y += 5;
+            doc.setFont("helvetica", "bold"); doc.text("Teléfono:", 12, y);
+            doc.setFont("helvetica", "normal"); doc.text(lastOrderShipping.phone, 30, y);
+
+            y += 5;
+            doc.setFont("helvetica", "bold"); doc.text("Dirección:", 12, y);
+            doc.setFont("helvetica", "normal"); 
+            const dirText = `${lastOrderShipping.street}, Col. ${lastOrderShipping.colony}, C.P. ${lastOrderShipping.cp}, ${lastOrderShipping.city}, ${lastOrderShipping.state}`;
+            const splitDir = doc.splitTextToSize(dirText, 105);
+            doc.text(splitDir, 30, y);
+            
+            y += (splitDir.length * 4.5);
+            if (lastOrderShipping.notes) {
+                doc.setFont("helvetica", "bold"); doc.text("Ref:", 12, y);
+                doc.setFont("helvetica", "normal"); doc.text(lastOrderShipping.notes, 30, y);
+                y += 6;
+            }
+
+            // Construir datos de productos para la tabla
+            const tableData = [];
+            let totalMoney = 0;
+            let totalItems = 0;
+
+            itemsToCheckout.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                totalMoney += subtotal;
+                totalItems += item.quantity;
+                tableData.push([item.title, item.quantity.toString(), `$${subtotal}.00 MXN`]);
+            });
+
+            // Dibujar Tabla
+            doc.autoTable({
+                startY: y + 2,
+                head: [['Producto', 'Cant.', 'Subtotal']],
+                body: tableData,
+                headStyles: { fillColor: [37, 211, 102], textColor: [255, 255, 255], fontStyle: 'bold' },
+                styles: { fontSize: 8, cellPadding: 2.5 },
+                columnStyles: {
+                    0: { cellWidth: 75 },
+                    1: { cellWidth: 20, halign: 'center' },
+                    2: { cellWidth: 33, halign: 'right' }
+                },
+                margin: { left: 10, right: 10 }
+            });
+
+            // Totales
+            const finalY = doc.lastAutoTable.finalY + 8;
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(9);
+            doc.setTextColor(50, 50, 50);
+            doc.text(`Total Artículos: ${totalItems}`, 138, finalY, { align: "right" });
+            
+            doc.setFontSize(12);
+            doc.setTextColor(217, 83, 79);
+            doc.text(`Total: $${totalMoney}.00 MXN`, 138, finalY + 6, { align: "right" });
+
+            // Pie de página
+            doc.setFontSize(8);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(120, 120, 120);
+            doc.text("¡Gracias por tu compra en Echo Blaster!", 74, finalY + 16, { align: "center" });
+
+            // Guardar el PDF directamente
+            doc.save(`Comprobante_EchoBlaster_${Date.now()}.pdf`);
+        }
+
         function confirmPurchase() {
             const name = document.getElementById('ship-name').value.trim();
             const phone = document.getElementById('ship-phone').value.trim();
@@ -820,35 +655,95 @@
                 return;
             }
 
-            let message = "📦 *NUEVO PEDIDO - ECHO BLASTER*\n\n";
-            message += "👤 *Datos del Cliente:*\n";
-            message += `- *Nombre:* ${name}\n`;
-            message += `- *Teléfono:* ${phone}\n\n`;
+            // Guardar copia local para usar al presionar "Descargar Comprobante (.PDF)"
+            lastOrderShipping = { name, phone, street, colony, cp, city, state, notes };
 
-            message += "📍 *Dirección de Entrega:*\n";
-            message += `- *Calle y No:* ${street}\n`;
-            message += `- *Colonia:* ${colony}\n`;
-            message += `- *C.P.:* ${cp}\n`;
-            message += `- *Ciudad/Municipio:* ${city}\n`;
-            message += `- *Estado:* ${state}\n`;
-            
-            if (notes) {
-                message += `- *Referencias:* ${notes}\n`;
-            }
-            message += "\n";
+            let totalItems = 0;
+            let totalMoney = 0;
+            let itemsText = "";
+            let itemsTableRowsHTML = "";
 
-            message += "🛒 *Resumen del Pedido:*\n";
-            let total = 0;
             itemsToCheckout.forEach(item => {
                 const subtotal = item.price * item.quantity;
-                total += subtotal;
-                message += `- ${item.quantity}x ${item.title} ($${subtotal} MXN)\n`;
+                totalMoney += subtotal;
+                totalItems += item.quantity;
+                itemsText += `• ${item.quantity}x ${item.title} ($${subtotal} MXN)\n`;
+                
+                itemsTableRowsHTML += `
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 8px; text-align: left; font-size: 0.85rem;">${item.title}</td>
+                        <td style="padding: 8px; text-align: center; font-size: 0.85rem;">${item.quantity}</td>
+                        <td style="padding: 8px; text-align: right; font-size: 0.85rem;">$${subtotal}.00</td>
+                    </tr>
+                `;
             });
 
-            message += `\n💰 *Total a pagar: $${total} MXN*`;
+            let message = `📦 *NUEVO PEDIDO - ECHO BLASTER*\n\n`;
+            message += `👤 *Cliente:* ${name}\n`;
+            message += `📞 *Teléfono:* ${phone}\n\n`;
+            message += `📍 *Dirección de Entrega:*\n`;
+            message += `${street}, Col. ${colony}\n`;
+            message += `C.P. ${cp}, ${city}, ${state}\n`;
+            if (notes) message += `*Ref:* ${notes}\n`;
+            message += `\n🛒 *Artículos (${totalItems}):*\n${itemsText}`;
+            message += `\n💰 *Total a pagar: $${totalMoney}.00 MXN*`;
 
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.link/9ef52l?text=${encodedMessage}`, '_blank');
+            const phoneNumber = "5215512345678"; 
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+            const checkoutBox = document.querySelector('.checkout-box');
+            
+            checkoutBox.innerHTML = `
+                <div style="background:#ffffff; padding: 20px; font-family: Arial, sans-serif; color: #333333; border: 1px solid #dddddd; border-radius: 8px; box-sizing: border-box; width: 100%;">
+                    <div style="text-align: center; border-bottom: 2px solid #25d366; padding-bottom: 10px; margin-bottom: 15px;">
+                        <h2 style="margin: 0; color: #25d366; font-size: 1.6rem; font-weight: bold;">Echo Blaster</h2>
+                        <p style="margin: 3px 0; font-size: 0.85rem; color: #666666;">Comprobante de Pedido</p>
+                        <p style="margin: 0; font-size: 0.75rem; color: #888888;">Fecha: ${new Date().toLocaleDateString('es-MX')}</p>
+                    </div>
+
+                    <div style="font-size: 0.85rem; margin-bottom: 15px; background: #f9f9f9; padding: 10px; border-radius: 5px; border: 1px solid #eeeeee;">
+                        <p style="margin: 3px 0;"><strong>Cliente:</strong> ${name}</p>
+                        <p style="margin: 3px 0;"><strong>Teléfono:</strong> ${phone}</p>
+                        <p style="margin: 3px 0;"><strong>Dirección:</strong> ${street}, Col. ${colony}, C.P. ${cp}, ${city}, ${state}</p>
+                        ${notes ? `<p style="margin: 3px 0;"><strong>Referencia:</strong> ${notes}</p>` : ''}
+                    </div>
+
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 15px;">
+                        <thead>
+                            <tr style="background: #25d366; color: #ffffff;">
+                                <th style="padding: 8px; text-align: left;">Producto</th>
+                                <th style="padding: 8px; text-align: center;">Cant.</th>
+                                <th style="padding: 8px; text-align: right;">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsTableRowsHTML}
+                        </tbody>
+                    </table>
+
+                    <div style="text-align: right; font-size: 1rem; margin-top: 10px;">
+                        <p style="margin: 3px 0; font-size: 0.85rem;"><strong>Total Artículos:</strong> ${totalItems}</p>
+                        <p style="margin: 5px 0; font-size: 1.2rem; color: #d9534f;"><strong>Total: $${totalMoney}.00 MXN</strong></p>
+                    </div>
+
+                    <div style="margin-top: 20px; text-align: center; border-top: 1px dashed #cccccc; padding-top: 10px; font-size: 0.75rem; color: #777777;">
+                        ¡Gracias por tu compra en Echo Blaster!
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; flex-direction: column; margin-top: 20px;">
+                    <button onclick="downloadTicketPDF()" 
+                            style="background-color: #007bff; color: #ffffff; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.95rem;">
+                        📄 Descargar Comprobante (.PDF)
+                    </button>
+
+                    <a href="${whatsappUrl}" target="_blank" class="confirm-btn" style="display:block; text-decoration:none; background-color:#25d366; width:100%; box-sizing:border-box; text-align:center;">
+                        📲 Enviar Pedido a WhatsApp
+                    </a>
+                </div>
+            `;
+            
+            clearCart();
         }
 
         function setView(viewType) {
